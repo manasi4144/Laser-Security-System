@@ -63,44 +63,6 @@ GPIO_Handle initializeGPIO(FILE* logFile, char time[], char programName[])
 	return gpio;	
 }
 
-
-/*This function will change the appropriate pins value in the select register so that the pin can function as an output
-void setToOutput(GPIO_Handle gpio, int pinNumber, FILE* logFile, char time[], char programName[])
-{
-
-	//Check that the gpio is functional
-	if(gpio == NULL)
-	{
-		getTime(time);
-		PRINT_MSG_2(logFile, time, programName, "The GPIO has not been intitialized properly \n");
-		//printf("The GPIO has not been intitialized properly \n"); //use definition?
-		return;
-	}
-
-	//Check that we are trying to set a valid pin number
-	if(pinNumber < 2 || pinNumber > 27)
-	{
-		getTime(time);
-		PRINT_MSG_2(logFile, time, programName, "Not a valid pinNumber \n");
-		//printf("Not a valid pinNumber \n");
-		return;
-	}
-
-	//This will create a variable that has the appropriate select register number. 
-	int registerNum = pinNumber / 10;
-
-	//This will create a variable that is the appropriate amount that the 1 will need to be shifted by to set the pin to be an output
-	int bitShift = (pinNumber % 10) * 3;
-
-	uint32_t sel_reg_pin_number = gpiolib_read_reg(gpio, GPFSEL(registerNum));
-	sel_reg_pin_number |= 1  << bitShift;
-	gpiolib_write_reg(gpio, GPFSEL(registerNum), sel_reg_pin_number);
-	
-	//Log that pin has been set to an output
-	PRINT_MSG(logFile, time, programName, "Pin %d has been set to output\n\n", pinNumber);
-	
-}*/
-
 //This function should accept the diode number (1 or 2) and output
 //a 0 if the laser beam is not reaching the diode, a 1 if the laser
 //beam is reaching the diode or -1 if an error occurs.
@@ -1118,13 +1080,6 @@ int main(const int argc, const char* const argv[])
 	//Get the current time
 	getTime(time);
 	
-
-	/*Need to set two pins as output pins - pin 17 and pin 18 	
-	Set pin 17 as an output pin
-	setToOutput(gpio, 17);
-	Set pin 18 as an output pin
-	setToOutput(gpio, 18);	
-	*/
 	
 	//Create a variable that represents the initial start time
 	//time_t is a special variable type used by the time library for calendar times
